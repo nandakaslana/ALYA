@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask solidObjectsLayer;
 
+    public bool movbuff;
+
+    public float buffduration = 5;
+
+    private float currentbufftime;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -22,6 +28,16 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if (movbuff )
+        {
+            currentbufftime += Time.deltaTime;
+            if( currentbufftime > buffduration ) 
+            {
+                movbuff= false;
+                currentbufftime = 0;
+                moveSpeed = 10;
+            }
+        }
         if (!isMoving)
         {
             input.x = Input.GetAxisRaw("Horizontal");
